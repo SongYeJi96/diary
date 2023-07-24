@@ -2,6 +2,7 @@
 <%@ page import ="java.sql.*" %>
 <%@ page import="java.net.URLEncoder"%>
 <%
+
 	// insert 성공, 실패 상관없이 scheduleListByDate.jsp 페이지로 이동
 	// request 인코딩
 	request.setCharacterEncoding("utf-8");
@@ -34,16 +35,16 @@
 	String msg = null;
 	 if(request.getParameter("scheduleTime")==null
 		|| request.getParameter("scheduleTime").equals("")){
-			msg ="시간이 입력되지 않았습니다";
+	msg ="시간이 입력되지 않았습니다";
 		} else if(request.getParameter("scheduleMemo")==null
 		|| request.getParameter("scheduleMemo").equals("")){
-			msg ="일정이 입력되지 않았습니다";
+	msg ="일정이 입력되지 않았습니다";
 		} else if(request.getParameter("scheduleColor")==null
 		|| request.getParameter("scheduleColor").equals("")){
-			msg ="색이 선택되지 않았습니다";
+	msg ="색이 선택되지 않았습니다";
 		} else if(request.getParameter("schedulePw")==null
 		|| request.getParameter("schedulePw").equals("")){
-			msg ="비밀번호가 입력되지 않았습니다";
+	msg ="비밀번호가 입력되지 않았습니다";
 	}
 	if(msg != null) {
     	String rmsg =  URLEncoder.encode(msg,"utf-8");
@@ -89,6 +90,4 @@
 	} else{
 		System.out.println("insertScheduleAction 비정상 입력 row : "+ row);
 	}
-	
-	
 %>

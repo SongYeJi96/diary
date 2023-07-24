@@ -56,8 +56,9 @@
 	int lastMonthNum = 0;
 	Calendar lastMonth = Calendar.getInstance();
 	lastMonth.set(Calendar.YEAR, targetYear);
-	lastMonth.set(Calendar.MONTH, targetMonth);
+	lastMonth.set(Calendar.MONTH, targetMonth-1);
 	lastMonthNum = lastMonth.getActualMaximum(Calendar.DATE);
+	System.out.println(lastMonthNum + "<-- lastMonthNum");
 	
 	// 전체 TD를 7로 나눈 나머지 값:0
 	int endBlank = 0;
@@ -89,166 +90,113 @@
 		s.scheduleColor = rs.getString("scheduleColor");
 		scheduleList.add(s);
 	}
-	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>scheduleList.jsp</title>
-	<!-- Latest compiled and minified CSS -->
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-	
-	<!-- Latest compiled JavaScript -->
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-	a {
-	text-decoration: none;
-	color:#000000;}
-	a.btn{
-    display:inline-block;
-    width:100px;
-    line-height:20px;
-    text-align:center;
-    background-color:#333333;
-    color:#FFFFFF;}
-    .right{text-align:right;}
-    thead{background-color: #E7E7E7;}
-    td:hover{
-    background-color: #EAEAEA;
-    cursor: pointer;}
-</style>
+<jsp:include page="/inc/link.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container p-3"><!-- 메인메뉴 -->
-		<a href="./home.jsp" class="btn">홈</a>
-		<a href="./noticeList.jsp" class="btn">공지</a>
-		<a href="./scheduleList.jsp" class="btn">일정</a>
-	</div>
-	<div class="container p-3">
-		<h1><%=targetYear%>년 <%=targetMonth+1%>월</h1>
-	</div>
-	<div class="container right">
-		<a href="./scheduleList.jsp?targetYear=<%=targetYear%>&targetMonth=<%=targetMonth-1%>" class="btn">이전달</a>
-		<a href="./scheduleList.jsp?targetYear=<%=targetYear%>&targetMonth=<%=targetMonth+1%>" class="btn">다음달</a>
-	</div>
-	<div class="container p-3">
-		<table class="table table-sm">
-			
-			<tr>
-				<th class="text-danger">일</th>
-				<th>월</th>
-				<th>화</th>
-				<th>수</th>
-				<th>목</th>
-				<th>금</th>
-				<th class="text-important">토</th>
-			</tr>
-			
-			<tr>
-				<%
-					for(int i=0; i<totalTd; i+=1){
-						int num = i-startBlank+1;
-						if(i != 0 && i%7==0){
-				%>
-							</tr><tr>
-				<%
-						} 
-				%>
-				<%
-						String tdStyle="";
-						if(num>0 && num<=lastDate){
-							if(today.get(Calendar.YEAR) == targetYear // 오늘 날짜
-								&& today.get(Calendar.MONTH) == targetMonth
-								&& today.get(Calendar.DATE) == num){
-								tdStyle = "background-color:#E7E7E7;";
-							}
-							
-							if(i%7==0){// 일요일 글자 : 빨강
-				%>
-									<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-danger">
-										<div><!-- 일 숫자 -->
-												<%=num%>
-										</div>
-										<div><!-- 일정 메모(5글자만) -->
-											<%
-												for(Schedule s : scheduleList){
-													if(num==Integer.parseInt(s.scheduleDate)){
-											%>
-												<div style="color:<%=s.scheduleColor%>">
-													<%=s.scheduleMemo%>
+	<div class="main-container">
+		<div class="cell-header">
+			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+		</div>
+		<div class="cell-content">
+			<div class="container p-3">
+				<h1><%=targetYear%>년 <%=targetMonth+1%>월</h1>
+			</div>
+			<div class="container p-3 text-right">
+				<a href="./scheduleList.jsp?targetYear=<%=targetYear%>&targetMonth=<%=targetMonth-1%>" class="btn">이전달</a>
+				<a href="./scheduleList.jsp?targetYear=<%=targetYear%>&targetMonth=<%=targetMonth+1%>" class="btn">다음달</a>
+			</div>
+			<div class="container p-3">
+				<table class="table calendar-table">
+					<thead>
+						<tr>
+							<th class="text-danger">일</th>
+							<th>월</th>
+							<th>화</th>
+							<th>수</th>
+							<th>목</th>
+							<th>금</th>
+							<th class="text-important">토</th>
+						</tr>
+					</thead>
+					<tr>
+						<%
+							for(int i=0; i<totalTd; i+=1){
+								int num = i-startBlank+1;
+								if(i != 0 && i%7==0){
+						%>
+									</tr><tr>
+						<%
+								} 
+						%>
+						<%
+								String tdStyle="";
+								if(num>0 && num<=lastDate){
+									if(today.get(Calendar.YEAR) == targetYear // 오늘 날짜
+										&& today.get(Calendar.MONTH) == targetMonth
+										&& today.get(Calendar.DATE) == num){
+										tdStyle = "background-color:#EAEAEA;";
+									}
+									
+									if(i%7==0){// 일요일 글자 : 빨강
+						%>
+											<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-danger calendarTd">
+									<%
+										} else if(i%7==6){ // 토요일 : 파랑
+									%>
+											<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-important calendarTd">
+									<%
+										} else{ // 나머지 : 검정
+									%>
+											<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-dark calendarTd">				
+									<%
+										}
+									%>			<!-- 일 숫자 -->
+												<div><%=num%></div>
+												<!-- 일정 메모(5글자만) -->
+												<div>
+													<%
+														for(Schedule s : scheduleList){
+															if(num==Integer.parseInt(s.scheduleDate)){
+													%>
+														<div style="color:<%=s.scheduleColor%>">
+															<%=s.scheduleMemo%>
+														</div>
+													<%		
+															}
+														}
+													%>
 												</div>
-											<%		
-													}
-												}
-											%>
-										</div>
-									</td>
-				<%			
-							} else if(i%7==6){ // 토요일 : 파랑
-				%>
-									<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-important">
-										<div><!-- 일 숫자 -->
-												<%=num%>
-										</div>
-										<div><!-- 일정 메모(5글자만) -->
-											<%
-												for(Schedule s : scheduleList){
-													if(num==Integer.parseInt(s.scheduleDate)){
-											%>
-												<div style="color:<%=s.scheduleColor%>">
-													<%=s.scheduleMemo%>
-												</div>
-											<%		
-													}
-												}
-											%>
-										</div>
-									</td>
-				
-				<%				
-							} else{ // 나머지 : 검정
-				%>
-								<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-dark">
-									<div><!-- 일 숫자 -->
-											<%=num%>
-									</div>
-									<div><!-- 일정 메모(5글자만) -->
-										<%
-											for(Schedule s : scheduleList){
-												if(num==Integer.parseInt(s.scheduleDate)){
-										%>
-											<div style="color:<%=s.scheduleColor%>">
-												<%=s.scheduleMemo%>
-											</div>
-										<%		
-												}
-											}
-										%>
-									</div>
-								</td>
-				<%				
+											</td>
+						
+							<%		
+								} else if(num<1){// 1일 앞의 공란 저번달 일 나오게
+							%>			
+										<td class="text-muted calendarTd">
+											<%=lastMonthNum + num%>
+										</td>
+							<%
+									} else{// 마지막 일 이후의 공란 다음달 일 나오게
+							%>
+											<td class="text-muted calendarTd">
+												<%=num-endDateNum %>
+											</td>
+							<%				
+									}
 							}
-				%>
-				<%		
-						} else if(num<1){// 1일 앞의 공란 저번달 일 나오게
-				%>			
-								<td class="text-muted">
-										<%=lastMonthNum + num %>
-								</td>
-					<%
-							} else{// 마지막 일 이후의 공란 다음달 일 나오게
-					%>
-									<td class="text-muted">
-										<%=num-endDateNum %>
-									</td>
-					<%				
-							}
-					}
-				%>
-								
-			</tr>
-		</table>
+							%>			
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="cell-footer">
+			<jsp:include page="/inc/copyright.jsp"></jsp:include>
+		</div>
 	</div>
 </body>
 </html>

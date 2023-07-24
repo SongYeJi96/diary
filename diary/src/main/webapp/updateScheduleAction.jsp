@@ -30,19 +30,19 @@
 	String msg = null;
 	if(request.getParameter("scheduleDate")==null
 		|| request.getParameter("scheduleDate").equals("")){
-			msg ="날짜가 입력되지 않았습니다";
+	msg ="날짜가 입력되지 않았습니다";
 	} else if(request.getParameter("scheduleTime")==null
 		|| request.getParameter("scheduleTime").equals("")){
-			msg ="시간이 입력되지 않았습니다";
+	msg ="시간이 입력되지 않았습니다";
 		} else if(request.getParameter("scheduleMemo")==null
 		|| request.getParameter("scheduleMemo").equals("")){
-			msg ="일정이 입력되지 않았습니다";
+	msg ="일정이 입력되지 않았습니다";
 		} else if(request.getParameter("scheduleColor")==null
 		|| request.getParameter("scheduleColor").equals("")){
-			msg ="색이 선택되지 않았습니다";
+	msg ="색이 선택되지 않았습니다";
 		} else if(request.getParameter("schedulePw")==null
 		|| request.getParameter("schedulePw").equals("")){
-			msg ="비밀번호가 입력되지 않았습니다";
+	msg ="비밀번호가 입력되지 않았습니다";
 	}
 	if(msg != null) {
     	String rmsg =  URLEncoder.encode(msg,"utf-8");
@@ -107,5 +107,5 @@
 		response.sendRedirect("./scheduleListByDate.jsp?y="+y+"&m="+m+"&d="+d);
 	}else {
 		System.out.println("error row값 : "+row);
-	}	
+	}
 %>

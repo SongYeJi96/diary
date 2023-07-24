@@ -78,79 +78,63 @@
 <head>
 <meta charset="UTF-8">
 <title>noticeList.jsp</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-	a {
-	text-decoration: none;
-	color:#000000;}
-	a.btn{
-    display:inline-block;
-    width:100px;
-    line-height:20px;
-    text-align:center;
-    background-color:#333333;
-    color:#FFFFFF;}
-    .right{text-align:right;}
-    thead{background-color: #E7E7E7;}
-    .tdtitle:hover{
-    color:#0100FF;
-    background-color: ;
-    cursor: pointer;}
-</style>
+<jsp:include page="/inc/link.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container p-3"><!-- 메인메뉴 -->
-		<a href="./home.jsp" class="btn">홈</a>
-		<a href="./noticeList.jsp" class="btn">공지</a>
-		<a href="./scheduleList.jsp" class="btn">일정</a>
+	<div class="main-container">
+		<div class="cell-header">
+			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+		</div>
+		<div class="cell-content">
+			<!-- 공지 리스트 -->
+			<div class="container p-3">
+				<table class="table table_sm">
+					<thead>
+						<tr>
+							<th>제목</th>
+							<th>등록일</th>
+						</tr>
+					</thead>
+					<tbody>
+						<%
+							for(Notice n:noticeList){
+						%>
+							
+								<tr onclick="location.href='./noticeOne.jsp?noticeNo=<%=n.noticeNo%>'">
+									<td class="tdtitle"><%=n.noticeTitle%></td>
+									<td><%=n.createdate.substring(0,10)%></td>
+								</tr>	
+						<%		
+							}
+						%>
+					</tbody>
+				</table>
+			</div>
+			<div class="container text-right">
+				<a href="./insertNoticeForm.jsp" class="btn">공지 작성</a>
+			</div>
+			<!-- 페이지 네비게이션 -->
+			<div class="container p-3 text-center">
+				<%
+					if(currentPage > 1) {
+				%>
+						<a href ="./noticeList.jsp?currentPage=<%=currentPage-1%>">이전</a>
+				<%		
+					}
+				%>
+						<%=currentPage %>
+				<%
+					if(currentPage < lastPage){
+				%>
+						<a href ="./noticeList.jsp?currentPage=<%=currentPage+1%>">다음</a>
+				<%
+				}
+				%>
+			</div>
+		</div>
+		<div class="cell-footer">
+			<jsp:include page="/inc/copyright.jsp"></jsp:include>
+		</div>
 	</div>
-	
-	<div class="container p-3">
-	<table class="table table_sm">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>등록일</th>
-			</tr>
-		</thead>
-		<%
-			for(Notice n:noticeList){
-		%>
-			<tbody>
-				<tr onclick="location.href='./noticeOne.jsp?noticeNo=<%=n.noticeNo%>'">
-					<td class="tdtitle"><%=n.noticeTitle%></td>
-					<td><%=n.createdate.substring(0,10)%></td>
-				</tr>
-			</tbody>
-		<%		
-			}
-		%>
-	</table>
-	</div>
-	<div class="container right">
-		<a href="./insertNoticeForm.jsp" class="btn">공지 등록</a>
-	</div>
-	<div class="container p-3 text-center">
-		<%
-			if(currentPage > 1) {
-		%>
-				<a href ="./noticeList.jsp?currentPage=<%=currentPage-1%>">이전</a>
-		<%		
-			}
-		%>
-				<%=currentPage %>
-		<%
-			if(currentPage < lastPage){
-		%>
-				<a href ="./noticeList.jsp?currentPage=<%=currentPage+1%>">다음</a>
-		<%
-		}
-		%>
-	</div>
-	
 </body>
 </html>

@@ -26,14 +26,14 @@
 	*/
 	String msg =null;
 	if(request.getParameter("noticePw")==null
-			|| request.getParameter("noticePw").equals("")){
-				msg ="비밀번호가 입력되지 않았습니다";
+	|| request.getParameter("noticePw").equals("")){
+		msg ="비밀번호가 입력되지 않았습니다";
 	} else if(request.getParameter("noticeTitle")==null
-			|| request.getParameter("noticeTitle").equals("")){
-				msg ="제목이 입력되지 않았습니다";
+	|| request.getParameter("noticeTitle").equals("")){
+		msg ="제목이 입력되지 않았습니다";
 	} else if(request.getParameter("noticeContent")==null
-			|| request.getParameter("noticeContent").equals("")){
-				msg ="공지내용이 입력되지 않았습니다";
+	|| request.getParameter("noticeContent").equals("")){
+		msg ="공지내용이 입력되지 않았습니다";
 	}
 	/* msg가 null이 아니면 updatNoticeForm.jsp에 noticeNo값, msg를 보낸다.
     * msg가 url 주소에서 한글이면 인코딩이 안되서 URLEncoder.encode 메소드를 사용하여 인코딩을 한다.
@@ -86,5 +86,5 @@
 		response.sendRedirect("./noticeOne.jsp?noticeNo="+noticeNo);
 	}else {
 		System.out.println("error row값 : "+row);
-	}	
+	}
 %>

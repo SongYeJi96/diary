@@ -48,64 +48,54 @@
 <head>
 <meta charset="UTF-8">
 <title>scheduleOne.jsp</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-	a {
-	text-decoration: none;
-	color:#000000;}
-	a.btn{
-    display:inline-block;
-    width:100px;
-    line-height:20px;
-    text-align:center;
-    background-color:#333333;
-    color:#FFFFFF;}
-    .right{text-align:right;}
-</style>
+<jsp:include page="/inc/link.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container p-3"><!-- 메인메뉴 -->
-		<a href="./home.jsp" class="btn">홈</a>
-		<a href="./noticeList.jsp" class="btn">공지</a>
-		<a href="./scheduleList.jsp" class="btn">일정</a>
-	</div>
-	
-	<div class="container p-3">
-	<h3>일정 상세</h3>
-		<table class="table table-sm">
-			<tr>
-				<td>번호</td>
-				<td><%=scheduleNo%></td>
-			</tr>
-			<tr>
-				<td>날짜</td>
-				<td><%=schedule.scheduleDate%></td>
-			</tr>
-			<tr>
-				<td>시간</td>
-				<td><%=schedule.scheduleTime%></td>
-			</tr>
-			<tr>
-				<td>일정</td>
-				<td><%=schedule.scheduleMemo%></td>
-			</tr>
-			<tr>
-				<td>등록일</td>
-				<td><%=schedule.createdate.substring(0,10)%></td>
-			</tr>
-			<tr>
-				<td>수정일</td>
-				<td><%=schedule.updatedate.substring(0,10)%></td>
-			</tr>
-		</table>
-	</div>
-	<div class="container right">
-		<a href="./updateScheduleForm.jsp?scheduleNo=<%=scheduleNo%>" class="btn">수정</a>
-		<a href="./deleteScheduleForm.jsp?scheduleNo=<%=scheduleNo%>&scheduleDate=<%=schedule.scheduleDate%>" class="btn">삭제</a>
+	<div class="main-container">
+		<div class="cell-header">
+			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+		</div>
+		<div class="cell-content">
+			<h3 class="container p-3">일정 상세</h3>
+			<div class="container p-3">
+				<table class="table">
+					<tr>
+						<td>번호</td>
+						<td><%=scheduleNo%></td>
+					</tr>
+					<tr>
+						<td>날짜</td>
+						<td><%=schedule.scheduleDate%></td>
+					</tr>
+					<tr>
+						<td>시간</td>
+						<td><%=(schedule.scheduleTime).substring(0,5)%></td>
+					</tr>
+					<tr>
+						<td>일정</td>
+						<td>
+						<textarea rows="10" name="scheduleMemo" class="form-control none" readonly="readonly"><%=schedule.scheduleMemo%></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>등록일</td>
+						<td><%=schedule.createdate.substring(0,10)%></td>
+					</tr>
+					<tr>
+						<td>수정일</td>
+						<td><%=schedule.updatedate.substring(0,10)%></td>
+					</tr>
+				</table>
+			</div>
+			<div class="container text-right">
+				<a href="./updateScheduleForm.jsp?scheduleNo=<%=scheduleNo%>" class="btn">수정</a>
+				<a href="./deleteScheduleForm.jsp?scheduleNo=<%=scheduleNo%>&scheduleDate=<%=schedule.scheduleDate%>" class="btn">삭제</a>
+				<a href="./scheduleListByDate.jsp?scheduleDate=<%=schedule.scheduleDate%>" class="btn">일정</a>
+			</div>
+		</div>
+		<div class="cell-footer">
+			<jsp:include page="/inc/copyright.jsp"></jsp:include>
+		</div>
 	</div>
 </body>
 </html>

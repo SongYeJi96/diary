@@ -43,107 +43,84 @@
 <head>
 <meta charset="UTF-8">
 <title>updateNoticeForm</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-	a {
-	text-decoration: none;
-	color:#000000;}
-	a.btn{
-    display:inline-block;
-    width:100px;
-    line-height:20px;
-    text-align:center;
-    background-color:#333333;
-    color:#FFFFFF;}
-    button.btn{
-    display:inline-block;
-    width:100px;
-    line-height:20px;
-    text-align:center;
-    background-color:#333333;
-    color:#FFFFFF;}
-    .right{text-align:right;}
-    .none{border-style: none;}
-</style>
+<jsp:include page="/inc/link.jsp"></jsp:include>
 </head>
 <body>
-	
-	<div class="container p-3"><!-- 메인메뉴 -->
-		<a href="./home.jsp" class="btn">홈</a>
-		<a href="./noticeList.jsp" class="btn">공지</a>
-		<a href="./scheduleList.jsp" class="btn">일정</a>
+	<div class="main-container">
+		<div class="cell-header">
+			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+		</div>
+		<div class="cell-content">
+			<!-- updateNoticeAction.jsp 페이지에서 들어온 msg의 값이 null이 아니면 msg 출력 -->
+			<div class="container">
+				<%
+					String msg = request.getParameter("msg");
+					if(msg!= null){
+				%>
+						<%=msg%>
+				<%		
+					}
+				%>
+			</div>
+			<!-- 공지수정 폼 -->
+			<form action="./updateNoticeAction.jsp" method="post">
+				<h3 class="container p-3">공지 수정</h3>
+				<div class="container p-3">
+					<table class="table">
+						<tr>
+							<td>번호</td>
+							<td>
+								<input type="hidden" name="noticeNo" value="<%=noticeNo%>">
+								<%=noticeNo%>
+							</td>
+						</tr>
+						<tr>
+							<td>제목</td>
+							<td>
+								<input type="text" name="noticeTitle" value="<%=notice.noticeTitle%>" class="form-control">
+							</td>
+						</tr>
+						<tr>
+							<td>공지</td>
+							<td>
+								<textarea rows="10" name="noticeContent" class="form-control"><%=notice.noticeContent%></textarea>
+							</td>
+						</tr>
+						<tr>
+							<td>작성인</td>
+							<td>
+								<%=notice.noticeWriter%>
+							</td>
+						</tr>
+						<tr>
+							<td>비밀번호</td>
+							<td>
+								<input type="password" name="noticePw" class="form-control w-25"> 
+							</td>
+						</tr>
+						<tr>
+							<td>작성일</td>
+							<td>
+								<%=notice.createdate.substring(0,10)%>
+							</td>
+						</tr>
+						<tr>
+							<td>수정일</td>
+							<td>
+								<%=notice.updatedate.substring(0,10)%>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div class="container p-3 text-right">
+					<button type="submit" class="btn">수정</button>
+					<button type="button" onclick="location.href='./noticeOne.jsp?noticeNo=<%=noticeNo%>'" class="btn">취소</button>
+				</div>
+			</form>
+		</div>
+		<div class="cell-footer">
+			<jsp:include page="/inc/copyright.jsp"></jsp:include>
+		</div>
 	</div>
-	<div class="container p-3">
-	<!-- updateNoticeAction.jsp 페이지에서 들어온 msg의 값이 null이 아니면 msg 출력 -->
-		<%
-			String msg = request.getParameter("msg");
-			if(msg!= null){
-		%>
-				<%=msg%>
-		<%		
-			}
-		%>
-	</div>
-	<form action="./updateNoticeAction.jsp" method="post">
-		<div class="container p-3">
-		<h3>정보 수정</h3>
-			
-		</div>
-		<div class="container p-3">
-			<table class="table table-sm">
-				<tr>
-					<td>번호</td>
-					<td>
-						<input type="number" name="noticeNo" value="<%=noticeNo%>" readonly="readonly" class="none">
-					</td>
-				</tr>
-				<tr>
-					<td>제목</td>
-					<td>
-						<input type="text" name="noticeTitle" value="<%=notice.noticeTitle%>" >
-					</td>
-				</tr>
-				<tr>
-					<td>공지</td>
-					<td>
-						<textarea rows="5" cols="80" name="noticeContent"><%=notice.noticeContent%>
-						</textarea>
-					</td>
-				</tr>
-				<tr>
-					<td>작성인</td>
-					<td>
-						<%=notice.noticeWriter%>
-					</td>
-				</tr>
-				<tr>
-					<td>비밀번호</td>
-					<td>
-						<input type="password" name="noticePw"> 
-					</td>
-				</tr>
-				<tr>
-					<td>작성일</td>
-					<td>
-						<%=notice.createdate.substring(0,10)%>
-					</td>
-				</tr>
-				<tr>
-					<td>수정일</td>
-					<td>
-						<%=notice.updatedate.substring(0,10)%>
-					</td>
-				</tr>
-			</table>
-		</div>
-		<div class="container right">
-			<button type="submit" class="btn">수정</button>
-			<button type="button" onclick="location.href='noticeList.jsp'" class="btn">뒤로가기</button>
-		</div>
-	</form>
 </body>
 </html>

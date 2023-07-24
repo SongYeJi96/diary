@@ -37,71 +37,59 @@
 		notice.createdate = rs.getString("createdate");
 		notice.updatedate = rs.getString("updatedate");
 	}
-	
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>noticeOne.jsp</title>
-<!-- Latest compiled and minified CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-<!-- Latest compiled JavaScript -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<style>
-	a {
-	text-decoration: none;
-	color:#000000;}
-	a.btn{
-    display:inline-block;
-    width:100px;
-    line-height:20px;
-    text-align:center;
-    background-color:#222222;
-    color:#FFFFFF;}
-    .right{text-align:right;}
-</style>
+<jsp:include page="/inc/link.jsp"></jsp:include>
 </head>
 <body>
-	<div class="container p-3"><!-- 메인메뉴 -->
-		<a href="./home.jsp" class="btn">홈</a>
-		<a href="./noticeList.jsp" class="btn">공지</a>
-		<a href="./scheduleList.jsp" class="btn">일정</a>
-	</div>
-
-	<div class="container p-3">	
-	<h3>공지 상세</h3>
-		<table class="table table-sm w-aoto">
-			<tr>
-				<td>번호</td>
-				<td><%=noticeNo%></td>
-			</tr>
-			<tr>
-				<td>제목</td>
-				<td><%=notice.noticeTitle%></td>
-			</tr>
-			<tr>
-				<td>공지 내용</td>
-				<td><%=notice.noticeContent%></td>
-			</tr>
-			<tr>
-				<td>작성인</td>
-				<td><%=notice.noticeWriter%></td>
-			</tr>
-			<tr>
-				<td>등록일</td>
-				<td><%=notice.createdate.substring(0,10)%></td>
-			</tr>
-			<tr>
-				<td>수정일</td>
-				<td><%=notice.updatedate.substring(0,10)%></td>
-			</tr>
-		</table>
-	</div>
-	<div class="container p-3 right">
-		<a href="./updateNoticeForm.jsp?noticeNo=<%=noticeNo%>" class="btn">수정</a>
-		<a href="./deleteNoticeForm.jsp?noticeNo=<%=noticeNo%>" class="btn">삭제</a>
+	<div class="main-container">
+		<div class="cell-header">
+			<jsp:include page="/inc/mainmenu.jsp"></jsp:include>
+		</div>
+		<div class="cell-content">
+			<h3 class="container p-3">공지 상세</h3>
+			<div class="container p-3">	
+				<table class="table">
+					<tr>
+						<td>번호</td>
+						<td><%=noticeNo%></td>
+					</tr>
+					<tr>
+						<td>제목</td>
+						<td><%=notice.noticeTitle%></td>
+					</tr>
+					<tr>
+						<td>공지 내용</td>
+						<td>
+							<textarea rows="10" name="noticeContent" class="form-control none" readonly="readonly"><%=notice.noticeContent%></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>작성인</td>
+						<td><%=notice.noticeWriter%></td>
+					</tr>
+					<tr>
+						<td>등록일</td>
+						<td><%=notice.createdate.substring(0,10)%></td>
+					</tr>
+					<tr>
+						<td>수정일</td>
+						<td><%=notice.updatedate.substring(0,10)%></td>
+					</tr>
+				</table>
+			</div>
+			<div class="container p-3 text-right">
+				<a href="./updateNoticeForm.jsp?noticeNo=<%=noticeNo%>" class="btn">수정</a>
+				<a href="./deleteNoticeForm.jsp?noticeNo=<%=noticeNo%>" class="btn">삭제</a>
+			</div>
+		</div>
+		<div class="cell-footer">
+			<jsp:include page="/inc/copyright.jsp"></jsp:include>
+		</div>
 	</div>
 </body>
 </html>

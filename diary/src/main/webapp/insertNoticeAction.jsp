@@ -2,6 +2,7 @@
 <%@ page import = "java.sql.*" %>
 <%@ page import="java.net.URLEncoder"%>
 <%
+
 	// request 인코딩
 	request.setCharacterEncoding("utf-8");
 
@@ -12,16 +13,16 @@
 	String msg =null;
 	if(request.getParameter("noticeTitle")==null
 		|| request.getParameter("noticeTitle").equals("")){
-				msg ="제목이 입력되지 않았습니다";
+		msg ="제목이 입력되지 않았습니다";
 	} else if(request.getParameter("noticeContent")==null
-			|| request.getParameter("noticeContent").equals("")){
-				msg ="공지가 입력되지 않았습니다";
+	|| request.getParameter("noticeContent").equals("")){
+		msg ="공지가 입력되지 않았습니다";
 	} else if(request.getParameter("noticeWriter")==null
-			|| request.getParameter("noticeWriter").equals("")){
-				msg ="작성인이 입력되지 않았습니다";
+	|| request.getParameter("noticeWriter").equals("")){
+		msg ="작성인이 입력되지 않았습니다";
 	} else if(request.getParameter("noticePw")==null
-			|| request.getParameter("noticePw").equals("")){
-				msg ="비밀번호가 입력되지 않았습니다";
+	|| request.getParameter("noticePw").equals("")){
+		msg ="비밀번호가 입력되지 않았습니다";
 		 
 	}
 	 if(msg != null) {

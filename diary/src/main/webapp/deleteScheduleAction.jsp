@@ -17,7 +17,7 @@
 		response.sendRedirect("./scheduleList.jsp");
 		return;	
 	} else if(request.getParameter("schedulePw") == null
-			  || request.getParameter("schedulePw").equals("") ){
+	  || request.getParameter("schedulePw").equals("") ){
 		String msg = URLEncoder.encode("비밀번호 값이 입력되지 않았습니다","utf-8");
 		response.sendRedirect("./deleteScheduleForm.jsp?scheduleNo="+request.getParameter("scheduleNo")+
 		"&scheduleDate="+request.getParameter("scheduleDate")+"&msg="+msg);
