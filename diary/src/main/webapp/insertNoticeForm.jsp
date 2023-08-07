@@ -56,7 +56,7 @@
 					</table>
 				</div>
 				<div class="container text-right">
-					<button type="submit" class="btn">입력</button>
+					<button type="submit" class="btn">등록</button>
 				</div>
 			</form>
 		</div>

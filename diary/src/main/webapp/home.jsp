@@ -92,7 +92,7 @@
 						</tr>
 					</thead>
 					<%
-						for(Schedule s : scheduleList ){		
+						for(Schedule s : scheduleList ){			
 					%>
 						<tbody>
 							<tr onclick="location.href='./scheduleOne.jsp?scheduleNo=<%=s.scheduleNo%>'">
@@ -108,18 +108,10 @@
 							</tr>
 						</tbody>
 					<%		
-						}
+						} 
 					%>
 				</table>
 			</div >
-			<div class="container p-3">
-			<h3>다이어리 프로젝트(첫 수업 시작일로부터 3주 진행)</h3>
-			<p>개발환경 : Eclipse(2022-12), JDK(17.0.6), Mariadb, tomcat(10), HeidSQL</p>
-			<p>프로젝트 내용</p>
-			<p>1. 데이터베이스 만들기</p>
-			<p>2. Eclipse에 DB 연결하여 select, insert, update, delete가 가능한 Form.jsp, Action.jsp 페이지 작성</p>
-			<p>3. Calendar API 사용하여 달력 제작</p>
-			</div>
 		</div>
 		<div class="cell-footer">
 			<jsp:include page="/inc/copyright.jsp"></jsp:include>

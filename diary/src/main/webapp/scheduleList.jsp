@@ -121,7 +121,7 @@
 							<th>수</th>
 							<th>목</th>
 							<th>금</th>
-							<th class="text-important">토</th>
+							<th class="text-primary">토</th>
 						</tr>
 					</thead>
 					<tr>
@@ -149,7 +149,7 @@
 									<%
 										} else if(i%7==6){ // 토요일 : 파랑
 									%>
-											<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-important calendarTd">
+											<td style="<%=tdStyle%>" onclick="location.href='./scheduleListByDate.jsp?y=<%=targetYear%>&m=<%=targetMonth%>&d=<%=num%>'" class="text-primary calendarTd">
 									<%
 										} else{ // 나머지 : 검정
 									%>
